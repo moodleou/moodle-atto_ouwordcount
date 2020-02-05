@@ -55,12 +55,12 @@ Y.namespace('M.atto_ouwordcount').Button = Y.Base.create('button', Y.M.editor_at
 
         // Update the word count when the text is changed
         this.get('host').textarea.on(['change', 'input', 'paste', 'keyup'], this._updateWordCount, this);
-        this.editor.on('focus', this._showWordCount, this);
+        this.editor.on(['focus', 'input', 'keyup'], this._showWordCount, this);
         this.editor.on('blur', this._hideWordCount, this);
     },
 
     _updateWordCount: function () {
-        var count = this._figureOutWordCount(this.editor._node.textContent);
+        var count = this._figureOutWordCount(this.editor._node.innerText);
         this._wordCount.textContent = M.util.get_string('wordcount', COMPONENTNAME) + ' ' +  count;
     },
 
@@ -78,20 +78,14 @@ Y.namespace('M.atto_ouwordcount').Button = Y.Base.create('button', Y.M.editor_at
 
     /**
      * Counts the number of words of the string.
-     * Copied from mod_oucontent/dynamic_word_count
      *
      * @param {string} text
      * @returns {number}
      */
     _figureOutWordCount: function (text) {
         var count = 0,
-            regex1 = new RegExp('\\</p>|</li>|</span>', 'g'), // Regex for replace all </p>, </li>, </span> to '\n'.
-            regex2 = new RegExp('\\<[^>]*>', 'g'), // Regex for replace all html tag to ''.
-            actual = text.replace(regex1, '\n')
-                .replace(regex2, '')
-                .trim()
-                .split(/ |\n|&nbsp;/);
-        // Remove all empty element in array.
+            actual = text.trim().split(/\s/);
+        // Remove all empty elements in array.
         for (var i = 0; i < actual.length; i++) {
             if (actual[i]) {
                 count++;

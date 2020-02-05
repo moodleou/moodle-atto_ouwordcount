@@ -46,3 +46,11 @@ Feature: Atto word count
     And I click on "#id_description_editoreditable" "css_element"
     Then I should see "Word count: 14"
 
+  Scenario: Counting words on multiple lines
+    Given I open my profile in edit mode
+    When I set the field "Description" to multiline:
+    """
+    <p>One</p><p>two</p><p>three<br/>four</p>
+    """
+    And I click on "#id_description_editoreditable" "css_element"
+    Then I should see "Word count: 4"
