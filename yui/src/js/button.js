@@ -47,6 +47,7 @@ Y.namespace('M.atto_ouwordcount').Button = Y.Base.create('button', Y.M.editor_at
 
         var newNode = document.createElement('div');
         newNode.setAttribute('class', 'ou_word_count');
+        newNode.setAttribute('aria-live', 'polite');
 
         this._wordCount = document.createElement('span');
         newNode.appendChild(this._wordCount);
