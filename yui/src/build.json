@@ -1,0 +1,10 @@
+{
+  "name": "moodle-atto_ouwordcount-button",
+  "builds": {
+    "moodle-atto_ouwordcount-button": {
+      "jsfiles": [
+        "button.js"
+      ]
+    }
+  }
+}
